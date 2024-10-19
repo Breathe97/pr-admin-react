@@ -1,15 +1,12 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Root from './routes/root'
-import ErrorPage from './pages/error/error-page'
+import { RouterView } from './routes/index'
+import type { RouteObject } from 'react-router-dom'
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Root />,
-    errorElement: <ErrorPage />
-  }
-])
+type PrAdminProps = {
+  _routes?: RouteObject[]
+}
 
-export default () => {
-  return <RouterProvider router={router} />
+export default (_props: PrAdminProps) => {
+  const { _routes } = _props
+
+  return <RouterView _routes={_routes} />
 }
