@@ -1,6 +1,5 @@
 import { Navigation } from '@toolpad/core/AppProvider'
 import DashboardIcon from '@mui/icons-material/Dashboard'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest'
 import GroupIcon from '@mui/icons-material/Group'
@@ -9,18 +8,19 @@ import VpnKeyIcon from '@mui/icons-material/VpnKey'
 import DataObjectIcon from '@mui/icons-material/DataObject'
 import ApartmentIcon from '@mui/icons-material/Apartment'
 import InsightsIcon from '@mui/icons-material/Insights'
+import { Chip } from '@mui/material'
 
 export const navigation: Navigation = [
   {
     segment: 'dashboard',
     title: 'Dashboard',
     pattern: 'analysis',
+    action: <Chip label={7} color="primary" size="small" />,
     icon: <DashboardIcon />
   },
   {
     segment: 'analysis',
     title: 'Analysis',
-    action: <>aaaa</>,
     pattern: 'aaaa',
     icon: <InsightsIcon />,
     children: [

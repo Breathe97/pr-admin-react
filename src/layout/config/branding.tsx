@@ -1,3 +1,11 @@
-export const branding = {
-  title: 'PR云-管理平台'
+import { Branding } from '@toolpad/core'
+import logo from '../../assets/logo.svg'
+
+export const branding: Branding = {
+  title: 'PRyun Open-Platform',
+  logo: (
+    <>
+      <img src={logo} alt="" />{' '}
+    </>
+  )
 }
