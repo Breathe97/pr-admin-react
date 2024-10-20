@@ -1,6 +1,6 @@
 import { Button } from '@mui/material'
 import { useColorScheme } from '@mui/material/styles'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { flushSync } from 'react-dom'
 
 export const DarkMode = () => {
