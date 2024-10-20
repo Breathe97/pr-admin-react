@@ -65,8 +65,8 @@ export const navigation: Navigation = [
         icon: <VpnKeyIcon />
       },
       {
+        segment: 'logs',
         title: 'Logs',
-        pattern: 'logs',
         icon: <DataObjectIcon />
       }
     ]
