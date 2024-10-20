@@ -1,4 +1,5 @@
 import Search from './Search'
+import Github from './Github'
 import { DarkMode } from './DarkMode'
 
 const ToolbarActions = () => {
@@ -7,6 +8,7 @@ const ToolbarActions = () => {
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <Search />
         <DarkMode />
+        <Github />
       </div>
     </>
   )
