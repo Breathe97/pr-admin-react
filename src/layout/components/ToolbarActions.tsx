@@ -4,8 +4,10 @@ import { DarkMode } from './DarkMode'
 const ToolbarActions = () => {
   return (
     <>
-      <Search />
-      <DarkMode />
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <Search />
+        <DarkMode />
+      </div>
     </>
   )
 }
