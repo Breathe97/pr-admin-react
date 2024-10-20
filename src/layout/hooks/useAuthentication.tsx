@@ -15,7 +15,7 @@ const useAuthentication = () => {
 
   const _authentication = () => {
     return {
-      signIn: () => {
+      signIn: async () => {
         console.log('\x1b[38;2;0;151;255m%c%s\x1b[0m', 'color:#0097ff;padding:16px 0;', `------->Breathe:`)
         setSession({
           user: {
@@ -24,10 +24,10 @@ const useAuthentication = () => {
             image: 'https://avatars.githubusercontent.com/u/19550456'
           }
         })
-        notifications.show('Consider yourself notified!', { autoHideDuration: 3000 })
       },
       signOut: () => {
         setSession(null)
+        notifications.show('Something great just happened!', { severity: 'success' })
       }
     }
   }
