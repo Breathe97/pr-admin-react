@@ -1,4 +1,4 @@
-import type { RouteObject } from 'react-router-dom'
+import { redirect, type RouteObject, Navigate } from 'react-router-dom'
 
 export const routes: RouteObject[] = [
   {
@@ -20,41 +20,26 @@ export const routes: RouteObject[] = [
     path: 'system',
     children: [
       {
-        index: true,
         path: 'users',
         lazy: async () => {
-          const { Page } = await import('../pages/system/system-index')
+          const { Page } = await import('../pages/system/users')
           return { Component: Page }
         }
       },
       {
         path: 'roles',
         lazy: async () => {
-          const { Page } = await import('../pages/system/system-index')
+          const { Page } = await import('../pages/system/roles')
           return { Component: Page }
         }
       },
       {
         path: 'permissions',
         lazy: async () => {
-          const { Page } = await import('../pages/system/system-index')
-          return { Component: Page }
-        }
-      },
-      {
-        path: 'logs',
-        lazy: async () => {
-          const { Page } = await import('../pages/system/system-index')
+          const { Page } = await import('../pages/system/permissions')
           return { Component: Page }
         }
       }
     ]
-  },
-  {
-    path: '*',
-    lazy: async () => {
-      const { Page } = await import('../pages/error/error-401')
-      return { Component: Page }
-    }
   }
 ]

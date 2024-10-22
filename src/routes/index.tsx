@@ -1,6 +1,6 @@
 import { useEffect, memo } from 'react'
 
-import { createBrowserRouter, RouterProvider, redirect } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import type { RouteObject } from 'react-router-dom'
 import Layout from '../layout/index'
 import { routes } from './routes'
@@ -9,9 +9,7 @@ import { routes } from './routes'
 const defaultRoutes: RouteObject[] = [
   {
     path: '/',
-    loader: async () => {
-      return redirect('/dashboard')
-    }
+    element: <Navigate to="/dashboard" />
   },
   {
     path: 'login',
