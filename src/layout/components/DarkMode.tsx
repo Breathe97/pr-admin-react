@@ -67,31 +67,25 @@ export const DarkMode = () => {
     const _mode: 'light' | 'dark' | 'system' | undefined = mode === 'dark' ? 'light' : 'dark'
 
     // 等待生成切片
-    await document.startViewTransition(() => {
-      flushSync(() => setMode(_mode)) // 设置一个动画结束后的状态
-    }).updateCallbackDone
-
-    // 计算动画
-    {
-      if (!ref.current || !document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        return setMode(_mode)
-      }
-      const { top, left, width, height } = ref.current.getBoundingClientRect()
-      const x = left + width / 2
-      const y = top + height / 2
-      const right = window.innerWidth - left
-      const bottom = window.innerHeight - top
-      const maxRadius = Math.hypot(Math.max(left, right), Math.max(top, bottom))
-      document.documentElement.animate(
-        [
-          // 动画开始
-          { clipPath: `circle(0px at ${x}px ${y}px)` },
-          // 动画结束
-          { clipPath: `circle(${maxRadius}px at ${x}px ${y}px)` }
-        ],
-        { duration: 500, easing: 'ease-out', pseudoElement: '::view-transition-new(root)' }
-      )
-    }
+    document
+      .startViewTransition(() => {
+        flushSync(() => setMode(_mode)) // 设置一个动画结束后的状态
+      })
+      .ready.then(() => {
+        // 计算动画
+        if (!ref.current || !document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          return setMode(_mode)
+        }
+        const { top, left, width, height } = ref.current.getBoundingClientRect()
+        const x = left + width / 2
+        const y = top + height / 2
+        const right = window.innerWidth - left
+        const bottom = window.innerHeight - top
+        const maxRadius = Math.hypot(Math.max(left, right), Math.max(top, bottom))
+        const keyframes = [{ clipPath: `circle(${Math.max(width, height) / 2}px at ${x}px ${y}px)` }, { clipPath: `circle(${maxRadius}px at ${x}px ${y}px)` }]
+        const options = { duration: 500, easing: 'ease-out', pseudoElement: '::view-transition-new(root)' }
+        document.documentElement.animate(keyframes, options)
+      })
   }
 
   return (

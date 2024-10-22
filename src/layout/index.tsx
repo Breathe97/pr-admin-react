@@ -23,9 +23,7 @@ const Layout = () => {
   return (
     <AppProvider theme={darkTheme} branding={branding} navigation={navigation} session={session} authentication={authentication}>
       <DashboardLayout slots={{ toolbarActions: ToolbarActions, sidebarFooter: SidebarFooter }}>
-        <PageContainer>
-          <Outlet />
-        </PageContainer>
+        <Outlet />
       </DashboardLayout>
     </AppProvider>
   )

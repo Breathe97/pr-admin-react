@@ -19,6 +19,12 @@ export const navigation: Navigation = [
     icon: <DashboardIcon />
   },
   {
+    segment: 'home',
+    title: 'Home',
+    pattern: 'home',
+    icon: <DashboardIcon />
+  },
+  {
     segment: 'analysis',
     title: 'Analysis',
     pattern: 'aaaa',
