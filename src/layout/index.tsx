@@ -23,7 +23,9 @@ const Layout = () => {
   return (
     <AppProvider theme={darkTheme} branding={branding} navigation={navigation} session={session} authentication={authentication}>
       <DashboardLayout disableCollapsibleSidebar slots={{ toolbarActions: ToolbarActions, sidebarFooter: SidebarFooter }}>
-        <Outlet />
+        <div style={{ padding: 20 }}>
+          <Outlet />
+        </div>
       </DashboardLayout>
     </AppProvider>
   )

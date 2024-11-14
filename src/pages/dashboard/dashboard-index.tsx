@@ -1,72 +1,34 @@
-import { Button } from '@mui/material'
-import { useColorScheme } from '@mui/material/styles'
-import { useNotifications } from '@toolpad/core'
-import { useEffect, useRef, useState } from 'react'
-import { flushSync } from 'react-dom'
+import { TextField } from '@mui/material'
+import { useState } from 'react'
+import { uuid, randomName } from 'pr-tools'
+
+export const highlight = (_text: string, _keys: string[], _options: { flags?: 'g' | 'gi'; style?: string } = {}) => {
+  const keys = _keys.filter((val) => val !== '')
+  if (keys.length === 0) return _text
+  const options = { flags: 'gi', style: 'text-decoration: underline;text-decoration-color: red;text-underline-offset: 0.2em;', ..._options }
+  const { flags, style } = options
+  const key_str = keys.join('|')
+  const reg = new RegExp(`(${key_str})`, flags)
+  const arr = _text.split(reg)
+  const endArr = []
+  for (const val of arr) {
+    const fall = reg.test(val)
+    const str = fall ? `<span style="${style}">${val}</span>` : val
+    endArr.push(str)
+  }
+  const str = endArr.join('')
+  return str
+}
+
+const text = `${uuid()}${randomName(8, 20)}`
 
 export const Page = () => {
-  const { mode, setMode } = useColorScheme()
-  const notifications = useNotifications()
-
-  const change = () => {
-    setMode(mode === 'dark' ? 'light' : 'dark')
-  }
-
-  const ref = useRef(null)
-
-  const [isDarkMode, setIsDarkMode] = useState(false)
-
-  const toggleDarkMode = async (isDarkMode) => {
-    /**
-     * Return early if View Transition API is not supported
-     * or user prefers reduced motion
-     */
-    if (!ref.current || !document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setIsDarkMode(isDarkMode)
-      return
-    }
-
-    await document.startViewTransition(() => {
-      flushSync(() => {
-        setIsDarkMode(isDarkMode)
-        change()
-      })
-    }).ready
-
-    const { top, left, width, height } = ref.current.getBoundingClientRect()
-    const x = left + width / 2
-    const y = top + height / 2
-    const right = window.innerWidth - left
-    const bottom = window.innerHeight - top
-    const maxRadius = Math.hypot(Math.max(left, right), Math.max(top, bottom))
-
-    document.documentElement.animate(
-      {
-        clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${maxRadius}px at ${x}px ${y}px)`]
-      },
-      {
-        duration: 500,
-        easing: 'ease-in-out',
-        pseudoElement: '::view-transition-new(root)'
-      }
-    )
-  }
-
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  }, [isDarkMode])
+  const [key, set_key] = useState('2')
 
   return (
     <>
-      <Button ref={ref} onClick={toggleDarkMode}>
-        dashboard
-      </Button>
-      <div>{mode}</div>
-      <Button onClick={() => notifications.show('Something great just happened!', { severity: 'success' })}>notifications</Button>
+      <TextField id="outlined-basic" label="关键字" onInput={(e: any) => set_key(e.target.value)} />
+      <div style={{ padding: 20 }} dangerouslySetInnerHTML={{ __html: highlight('123456', ['3', '5', key]) }}></div>
     </>
   )
 }
